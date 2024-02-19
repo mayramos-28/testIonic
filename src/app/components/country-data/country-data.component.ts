@@ -73,7 +73,8 @@ export class CountryDataComponent implements OnInit, OnDestroy {
       header: randomCountries.name.common ,
       subHeader: 'Capital: ' + randomCountries.capital +  ' Region: ' + randomCountries.region ,
       message:  ' Population: ' + randomCountries.population + " inhabitants",
-      buttons:[{text: 'Next', handler: () => {this.replay()}}],
+      buttons:[{  text: 'Next',cssClass:"btn-alert",  handler: () => {this.replay()}}],
+      cssClass: "alert-custom"
     });
 
     await alert.present();
@@ -84,7 +85,8 @@ export class CountryDataComponent implements OnInit, OnDestroy {
       header: 'Incorrect Answer!',
       subHeader: 'The correct answer was:',
       message:   correctCountry  ,
-      buttons: [{text: 'Try Again', handler: () => {this.play()}}],
+      buttons: [{text: 'Try Again',cssClass:"btn-alert", handler: () => {this.play()}}],
+      cssClass: "alert-custom"
     });
 
     await alert.present();

@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+ion-alert.alert-custom {
+  background-color: rgba(0, 0, 0, 0.267);
+  backdrop-filter: blur(2px);
+
+  --background: rgba(255, 255, 255, 0.781);
+  
+}
+ion-alert.alert-custom.btn-alert{
+    color: red !important;
+    --border-color: red;
+                --border-width: 5px;
+                --border-style: solid;
+}
+/* .alert-button.sc-ion-alert-ios{
+    color: red;
+}
+.alert-button.sc-ion-alert-md{
+    color: red;
+} */
