@@ -1,0 +1,23 @@
+<ng-container *ngIf="playButton else playing">
+
+  <ion-button (click)="play()">Play</ion-button>
+
+</ng-container>
+
+<ng-template #playing>
+
+  <h2>Country to guess</h2>
+
+  <ion-card>
+    <img alt="Silhouette of mountains" src={{randomCountries[0].flags.svg}}/>
+    <ion-card-header>
+      <ion-card-title></ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more, nothing less.
+    </ion-card-content>
+  </ion-card>
+
+</ng-template>
