@@ -1,23 +1,39 @@
-<ng-container *ngIf="playButton else playing">
+<ion-content class="background" overflow-scroll="false">
 
-  <ion-button (click)="play()">Play</ion-button>
+  <ng-container *ngIf="playButton else playing">
+    <ion-button (click)="play()">Play</ion-button>
 
-</ng-container>
+  </ng-container>
 
-<ng-template #playing>
+  <ng-template #playing >
+    <div class="ion-text-center">    
 
-  <h2>Country to guess</h2>
+    <h2>Guess the flag</h2>
+    <h3>Correct answers : {{countriesService.counterData$| async}}</h3>
 
-  <ion-card>
-    <img alt="Silhouette of mountains" src={{randomCountries[0].flags.svg}}/>
-    <ion-card-header>
-      <ion-card-title></ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    </ion-card-header>
+    <ion-card>
+      <ion-img src={{randomCountries[0].flags.svg}}
+        alt="The Wisconsin State Capitol building in Madison, WI at night">
+      </ion-img>
 
-    <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
-    </ion-card-content>
-  </ion-card>
+      <ion-card-header>
+        <ion-card-title></ion-card-title>
+        <ion-card-subtitle>Options</ion-card-subtitle>
+      </ion-card-header>
 
-</ng-template>
+      <ion-card-content *ngFor="let playCountry of playCountries">
+        <ion-button expand="full" (click)="checkAnswer(playCountry.name.common)">{{playCountry.name.common}}</ion-button>
+      </ion-card-content>
+
+
+
+    </ion-card>
+
+
+
+      
+    </div>
+
+  </ng-template>
+
+</ion-content>

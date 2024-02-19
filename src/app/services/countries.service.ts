@@ -10,6 +10,8 @@ export class CountriesService {
   REST_API: string = "https://restcountries.com/v3.1/";
   private countrySubject = new BehaviorSubject<any>(null);
   public countryData$ = this.countrySubject.asObservable();
+  private counterSubject = new BehaviorSubject<number>(0);
+  public counterData$ = this.counterSubject.asObservable();
 
 
   constructor(
@@ -17,15 +19,15 @@ export class CountriesService {
   ) { }
 
   getAllCountries() {
-   this.http.get(this.REST_API + "all").pipe(take(1)).subscribe(data => this.countrySubject.next(data))
+    this.http.get(this.REST_API + "all").pipe(take(1)).subscribe(data => this.countrySubject.next(data))
   }
 
-  getRandomCountry( getAllCountries: any) {
-    
+  getRandomCountry(getAllCountries: any) {
+
     const randomsCountry: any[] = []
     for (let i = 0; i < 4; i++) {
       const randomIndex = Math.floor(Math.random() * getAllCountries.length);
-      if( randomsCountry.includes(getAllCountries[randomIndex]) ) {
+      if (randomsCountry.includes(getAllCountries[randomIndex])) {
         i--;
         continue;
       }
@@ -34,6 +36,10 @@ export class CountriesService {
 
     return randomsCountry
 
+  }
+
+  correctAnswer() {
+    this.counterSubject.next(this.counterSubject.value + 1);
   }
 
 
