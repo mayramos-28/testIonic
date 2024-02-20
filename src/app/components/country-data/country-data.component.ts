@@ -15,6 +15,7 @@ export class CountryDataComponent implements OnInit, OnDestroy {
   randomCountries: any[] = [];
   playCountries: any[] = [];
   playButton: boolean = true;
+  maxScore: string | undefined | null;
  
 
 
@@ -28,8 +29,7 @@ export class CountryDataComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.countriesService.getAllCountries();
     this.subscriptionData = this.countryData$?.subscribe(data => this.allCountries = data ? [...data] : []);
-
-
+    this.setMaxScore()
   }
   ngOnDestroy() {
     this.subscriptionData?.unsubscribe();
@@ -46,19 +46,40 @@ export class CountryDataComponent implements OnInit, OnDestroy {
   
 
   play() {
+    this.countriesService.wrongAnswer();
+    this.setMaxScore();
     this.playButton = !this.playButton;
     this.randomCountries = this.countriesService.getRandomCountry(this.allCountries);
     this.playCountries = this.shuffleArray(this.randomCountries);
-
-
   }
+
   replay() {
+    let maxScoreFlags = 0;
     this.randomCountries = this.countriesService.getRandomCountry(this.allCountries);
     this.playCountries = this.shuffleArray(this.randomCountries);
+    this.countriesService.counterData$.subscribe(score => {
+      console.log(score);
+      maxScoreFlags = score
+      this.checkMaxScore(maxScoreFlags);
+    }).unsubscribe()
+  }
+
+  checkMaxScore(score: number){
+    let localScore: string | number | null = localStorage.getItem('maxScoreFlags');
+    if(localScore && Number(localScore) < score){
+      localStorage.setItem('maxScoreFlags', score.toString());
+    }
+  }
+
+  setMaxScore(){
+    if(!localStorage.getItem('maxScoreFlags')){
+      localStorage.setItem('maxScoreFlags', '0')
+    }else{
+      this.maxScore = localStorage.getItem('maxScoreFlags') ? localStorage.getItem('maxScoreFlags') : undefined
+    }
   }
 
   checkAnswer(country: any, ) {
-    
     if (country === this.randomCountries[0].name.common) {      
       this.countriesService.correctAnswer();
       this.correctAlert(this.randomCountries[0]);      

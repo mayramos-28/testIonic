@@ -42,6 +42,8 @@ export class CountriesService {
     this.counterSubject.next(this.counterSubject.value + 1);
   }
 
-
+  wrongAnswer() {
+    this.counterSubject.next(0);
+  }
 
 }
